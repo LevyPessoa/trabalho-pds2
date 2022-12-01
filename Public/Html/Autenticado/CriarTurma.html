@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <label class="ml-2 mr-2">Criar Turma:</label>
+            <input class="ml-2 mr-2 form-control col-5" id="codigo" placeholder="Código" type="text">
+            <select class="form-control ml-2 mr-2 col-5 mt-2" id="materia">
+                <option value="">Materia</option>
+            </select>
+            <select class="form-control ml-2 mr-2 col-5 mt-2" id="professor">
+                <option value="">Professores</option>
+            </select>
+            <input id="sala" placeholder="Sala" class="form-control ml-2 mr-2 col-5 mt-2" type="number">
+             <label class="ml-2 mr-2 mt-2">Horario</label>
+             <input id="horario" class="ml-2 mr-2 form-control" type="datetime-local">
+             <button class="btn btn-success ml-2 mr-2 mt-2" id="btn-criar-turma">Criar</button>
+        </div>
+        <div class="col-lg-4"></div>
+
+    </div>
+<script src="/Js/requisicao.js"></script>
+
+<script src="/Js/Admin/CriarTurma.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+body{
+    overflow-x: hidden;
+}
+
+.dados-aluno{
+    border: solid 1px rgb(228, 223, 223);
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+}
+
+.foto-aluno{
+    border-radius: 50%;
+    background-color: black;
+    width: 70px;
+    height: 70px;
+}
+
+.centro{
+    align-items: center;
+}

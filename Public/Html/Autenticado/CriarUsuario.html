@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <label class="ml-2 mr-2">Dados Usuário:</label>
+            <input placeholder="Nome" id="nome" class="form-control col-5 ml-2 mr-2 mt-2" type="text">
+            <input placeholder="Sobrenome" id="sobrenome" class="form-control col-5 ml-2 mr-2 mt-2" type="text">
+            <input placeholder="E-mail" id="email" class="form-control col-5 ml-2 mr-2 mt-2" type="text">
+            <input placeholder="Idade" id="idade" class="form-control col-5 ml-2 mr-2 mt-2" type="number">
+            <input placeholder="Senha" id="senha" class="form-control col-5 ml-2 mr-2 mt-2" type="password">
+            <select class="ml-2 mr-2 form-control mt-2" id="sexo">
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+            </select>
+            <select class="form-control ml-2 mr-2 col-5 mt-2"  id="tipo">
+                <option value=""></option>
+                <option value="admin">Administrador</option>
+                <option value="professor">Professor</option>
+                <option value="aluno">Aluno</option>
+            </select>
+          
+            
+            <div style="display:none;" id="professor">
+                <label class="ml-2 mr-2 mt-2">Dados Professor:</label>
+                <input class="ml-2 mr-2 form-control col-5" id="departamento" placeholder="Departamento" type="text">
+                <label class="ml-2 mr-2">Turmas:</label>
+                <!-- <select class="form-control ml-2 mr-2 col-5" id="turmas">
+              
+                </select> -->
+                <input placeholder="Sala" class="form-control ml-2 mr-2 col-5 mt-2" type="number" id="sala">
+                <button id="btn-criar-professor" class="btn btn-success mt-2 ml-2 mr-2">Criar</button>
+            </div>
+
+            <div style="display:none;" id="aluno">
+                <label class="ml-2 mr-2 mt-2">Dados Aluno:</label>
+                <select class="form-control ml-2 mr-2" id="curso">
+                    <option value=""></option>
+                </select>
+                <button id="btn-criar-aluno" class="btn btn-success mt-2 ml-2 mr-2">Criar</button>
+            </div>
+           
+        </div>
+        <div class="col-lg-4"></div>
+
+    </div>
+<script src="/Js/requisicao.js"></script>
+
+<script src="/Js/Admin/criarUsuario.js"></script>
+</body>
+</html>
