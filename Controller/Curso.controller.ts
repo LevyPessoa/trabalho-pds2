@@ -49,30 +49,49 @@ class Curso extends Materia {
         return await this.CriarCurso(curso);
     };
 
-    private async ListarCursoNome(nome: string): Promise<boolean | Error> {
+    private async ListarCursoNome(nome: string, id?:string): Promise<boolean | Error> {
         try {
+            const curso:any = await schemaCurso.findOne({ nome: nome });
 
-            return !!await schemaCurso.findOne({ nome: nome });
+            if(!!curso){
+
+                return !!(curso._id+"" !== id);
+            }
+            
+            return false;
         } catch (erro) {
 
             return Error.ErroInterno();
         }
     };
 
-    private async ListarCursoEmail(email: string): Promise<boolean | Error> {
+    private async ListarCursoEmail(email: string, id?:string): Promise<boolean | Error> {
         try {
+            const curso:any = await schemaCurso.findOne({ email: email });
 
-            return !!await schemaCurso.findOne({ email: email });
+            if(!!curso){
+
+                return !!(curso._id+"" !== id);
+            }
+
+            return false;
+            
         } catch (erro) {
 
             return Error.ErroInterno();
         }
     };
 
-    private async ListarCursoCodigo(codigo: string): Promise<boolean | Error> {
+    private async ListarCursoCodigo(codigo: string, id?:string): Promise<boolean | Error> {
         try {
+            const curso:any = await schemaCurso.findOne({ codigo: codigo });
 
-            return !!await schemaCurso.findOne({ codigo: codigo });
+            if(!!curso){
+
+                return !!(curso._id+"" !== id);
+            }
+
+            return false;
         } catch (erro) {
 
             return Error.ErroInterno();
@@ -82,15 +101,15 @@ class Curso extends Materia {
     private async EditarCurso(id: string, curso: EditarCursoDto): Promise<MessageReturnDto | Error> {
         try {
 
-            if (await this.ListarCursoCodigo(curso.codigo)) {
+            if (await this.ListarCursoCodigo(curso.codigo, id)) {
                 throw (Error.NewError(403, 'Código de curso em uso.'))
             }
 
-            if (await this.ListarCursoEmail(curso.email)) {
+            if (await this.ListarCursoEmail(curso.email, id)) {
                 throw (Error.NewError(403, 'E-mail em uso.'))
             }
 
-            if (await this.ListarCursoNome(curso.nome)) {
+            if (await this.ListarCursoNome(curso.nome, id)) {
                 throw (Error.NewError(403, 'Nome de curso em uso'));
             }
 
@@ -167,7 +186,7 @@ class Curso extends Materia {
 
     async listarCursoId(id:string):Promise<MessageReturnDto | Error>{
 
-        return await this.listarCursoId(id);
+        return await this.ListarCursoId(id);
     };
 
     private async DesativarCurso(id:string):Promise<MessageReturnDto | Error>{

@@ -5,6 +5,7 @@ import { Error } from "./Erro.controller";
 import {MessageReturnDto} from '../Dto/Message/MessagemRetorno.dto';
 import schemaProfessor from '../Schema/Professor.schema'
 import { AtualizarPessoaDto } from '../Dto/Pessoa/AtualizarPessoa.dto';
+import { idText } from 'typescript';
 
 connection();
 class Professor extends Pessoa {
@@ -51,7 +52,7 @@ class Professor extends Pessoa {
     private async ListarProfessor(): Promise<MessageReturnDto | Error>{
         try{
             const professores = await schemaProfessor.find()
-                .populate('pessoa', ['nome', 'sobrenome','email']);
+                .populate('pessoa', ['nome', 'sobrenome','email', 'idade']);
                 
             return {status:200, content:professores};
         }catch(erro){
@@ -72,7 +73,8 @@ class Professor extends Pessoa {
                 throw(Error.NewError(403, 'Valores inválidos'));
             }
 
-            const buscarProfessor = await schemaProfessor.findById(id);
+            const buscarProfessor = await schemaProfessor.findOne({pessoa:id})
+                .populate("pessoa", ['nome', 'sobrenome', 'email', 'idade'])
 
             if(!!!buscarProfessor){
                 throw(Error.NewError(404, 'Erro ao buscar professor'));
@@ -102,7 +104,7 @@ class Professor extends Pessoa {
                 throw(Error.NewError(403, 'Valores inválidos'))
             }
 
-            const atualizarProfessor = await schemaProfessor.updateOne({_id:id}, professor);
+            const atualizarProfessor = await schemaProfessor.updateOne({pessoa:id}, professor);
 
             if(atualizarProfessor.modifiedCount === 0){
                 throw(Error.NewError(403, 'Erro ao atualizar professor'));
@@ -155,6 +157,37 @@ class Professor extends Pessoa {
         
         return await this.DesativarProfessor(id);
     };
+
+    private async ListarProfessorSesion(session:any):Promise<MessageReturnDto | Error>{
+        try{
+                console.log(session)
+            if(!!!session.user){
+                throw(Error.NewError(403, 'Usuário sem autenticação'))
+            }
+
+            const buscarDadosProfessor = await schemaProfessor.findOne({pessoa:session.user})
+                .populate("pessoa", ['nome', 'email', 'sobrenome', 'idade']);
+            
+            if(!!!buscarDadosProfessor){
+                throw(Error.NewError(404, 'Erro ao buscar professor'))
+            }
+
+            return {status:200, content:buscarDadosProfessor};
+        }catch(erro){
+            console.log(erro)
+            if(erro.status === 403 || erro.status === 404){
+
+                return erro;
+            }
+
+            return Error.ErroInterno();
+        }
+    };
+
+    async listarProfessorSession(session:any):Promise<MessageReturnDto | Error>{
+
+        return await this.ListarProfessorSesion(session);
+    }
 };
 
 export default new Professor();

@@ -1,3 +1,5 @@
+let objetoAlunos = {};
+
 const criarOption = (dados, tipo)=>{
     const select = document.getElementById(tipo);
 
@@ -12,6 +14,10 @@ const criarOption = (dados, tipo)=>{
 
         if(tipo === "materia"){
             option.innerText = `${dado.nome} - ${dado.codigo}`;
+        }
+
+        if(tipo === "aluno"){
+            option.innerText = `${dado.pessoa.nome} - ${dado.curso.nome}`;
         }
 
         select.append(option);
@@ -71,5 +77,45 @@ console.log(erro)
     }
 }
 
+const removerAluno = (id, nome) =>{
+    document.getElementById(id).style.display = 'none'
+    objetoAlunos[nome] = null;
+};
+
+const criarDivAluno = (id, nome) =>{
+    const div = document.getElementById("div-alunos");
+    const novaDiv = document.createElement("div");
+    const idDateNow = `${id}-${Date.now()}`
+    novaDiv.classList.add('div-materia');
+    novaDiv.id = idDateNow;
+    novaDiv.innerText = nome;
+    novaDiv.onclick= function(){
+        removerAluno(idDateNow, nome);
+    };
+
+    div.append(novaDiv);
+};
+
+const adicionarAluno = (id, nomeMateria) =>{
+   
+    if(!!objetoAlunos[nomeMateria]){
+        alert("Aluno já adicionado");
+
+        return;
+    }
+
+    objetoAlunos[nomeMateria] = id;
+    criarDivAluno(id, nomeMateria);
+};
+
+
+document.getElementById("btn-inserir-aluno").onclick =()=>{
+    const select = document.getElementById("aluno");
+    const option = select.children[select.selectedIndex];
+    const texto = option.textContent;
+    
+    adicionarAluno(select.value, texto)
+}
 listar("/v1/professor","professor");
 listar("/v1/materia", "materia");
+listar("/v1/aluno", "aluno");

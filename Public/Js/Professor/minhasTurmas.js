@@ -74,7 +74,7 @@ const listarTurmasTabela = (turma) =>{
 const listarTurmasBanco = async() =>{
     try{
 
-       const turmas = await requisicao("GET", "/v1/turma", null);
+       const turmas = await requisicao("GET", "/v1/turma/data/session", null);
 
        if(turmas.status === 200){
 
@@ -99,15 +99,7 @@ const listarTurmasBanco = async() =>{
 
 
 // editar
-document.getElementById("btn-editar-turma").onclick = ()=>{
-    $("[e-id=codigo-turma]").prop("disabled", false);
-    $("[e-id=materia-turma]").prop("disabled", false);
-    $("[e-id=professor-turma]").prop("disabled", false);
-    $("[e-id=sala-turma]").prop("disabled", false);
-    $("[e-id=horario-turma]").prop("disabled", false);
-    document.getElementById("btn-editar-turma").style.display = 'none';
-    document.getElementById("btn-salvar-turma").style.display = 'block';
-};
+
 
 const listarAlunos = (alunos) =>{
     
@@ -147,35 +139,7 @@ const verMais = async (id) =>{
     }
 };
 
-document.getElementById("btn-salvar-turma").onclick = async () =>{
-    try{
-           
-        const id =  $('[e-id=dados-turma]').attr("id");
-        const atualizarAlunoDados = await  requisicao("PUT", "/v1/turma", {
-            id,
-            codigo:$("[e-id=codigo-turma]").val(),
-            materia:$("[e-id=materias-turma]").val(),
-            professor:$("[e-id=professor-turma]").val(),
-            sala:$("[e-id=sala-turma]").val(),
-            horario:$("[e-id=horario-turma]").val(),
 
-        });
-
-        if(atualizarAlunoDados.status === 200){
-            alert(atualizarAlunoDados.content);
-
-            return voltarEstadoModal();
-        }
-
-        throw({erro:true, message:atualizarAlunoDados.content});
-    }catch(erro){
-
-        if(erro.erro){
-            alert(erro.message)
-        }
-
-    }
-};
 
 document.getElementById("fechar-modal").onclick = ()=>{
 
@@ -183,39 +147,17 @@ document.getElementById("fechar-modal").onclick = ()=>{
 };
 
 const voltarEstadoModal = () => {
-    $("[e-id=codigo-turma]").val();
-    document.getElementById("materias-turma").value = "";
-    document.getElementById("professor-turma").value = ""
-    $("[e-id=sala-turma]").val("");
-    $("[e-id=horario-turma]").val("");
-    $("[e-id=codigo-turma]").prop("disabled", true);
-    $("[e-id=materia-turma]").prop("disabled", true);
-    $("[e-id=professor-turma]").prop("disabled", true);
-    $("[e-id=sala-turma]").prop("disabled", true);
-    $("[e-id=horario-turma]").prop("disabled", true);
-    document.getElementById("btn-editar-turma").style.display = 'block';
-    document.getElementById("btn-salvar-turma").style.display = 'none';
+    
     $('#myModal').modal('hide');
 
 };
 
-document.getElementById("btn-editar-turma-alunos").onclick = ()=>{
-    $("[e-id=btn-adicionar-aluno]").prop("disabled", false);
-    $("[e-id=aluno-turma]").prop("disabled", false);
-    document.getElementById("btn-editar-turma-alunos").style.display='none';
-    document.getElementById("btn-salvar-turma-alunos").style.display='block';
-    
-}
+
 
 //editar
 
 
 //adionar alunos
-
-const removerAluno = (id, nome) =>{
-    document.getElementById(id).style.display = 'none'
-    objetoAlunos[nome] = null;
-};
 
 const criarDivAluno = (id, nome) =>{
     const div = document.getElementById("dados-alunos");
@@ -228,17 +170,15 @@ const criarDivAluno = (id, nome) =>{
 
     novaDiv.id = idDateNow;
     novaDiv.innerText = nome;
-    novaDiv.onclick= function(){
-        removerAluno(idDateNow, nome);
-    };
 
     div.append(novaDiv);
 };
 
 const adicionarAluno = (id, nomeMateria) =>{
-   
+   debugger
     if(!!objetoAlunos[nomeMateria]){
-       
+        
+
         return;
     }
 
@@ -246,48 +186,11 @@ const adicionarAluno = (id, nomeMateria) =>{
     criarDivAluno(id, nomeMateria);
 };
 
-const buscarAlunos = () =>{
-    let arrayAlunos = [];
 
-    Object.keys(objetoAlunos).forEach(key=>{
-        arrayAlunos.push(objetoAlunos[key])
-    });
-    
-    return arrayAlunos;
-}
 
-document.getElementById("btn-salvar-turma-alunos").onclick = async()=>{
-    try{
 
-        const id =  $('[e-id=dados-turma]').attr("id");
-        const atualizarListaAlunos = await requisicao("PUT","/v1/turma", {
-            id,
-            aluno:buscarAlunos()
-        })
 
-        if(atualizarListaAlunos.status === 200){
-            alert(atualizarListaAlunos.content);
 
-            return;
-        }
-
-        throw({erro:true, message:atualizarListaAlunos.content});
-    }catch(erro){
-
-        if(erro.erro){
-            alert(erro.message)
-
-            return;
-        }
-    }
-}
-
-document.getElementById("btn-adicionar-aluno").onclick = () =>{
-    const select = document.getElementById("aluno-turma");
-    const option = select.children[select.selectedIndex];
-    const texto = option.textContent;
-    adicionarAluno(select.value, texto)
-}
 
 
 //adicionar alunos

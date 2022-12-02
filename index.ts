@@ -16,8 +16,10 @@ import MateriaAdmin from './Routes/Materia/Materias.admin.route';
 import TurmaAdmin from './Routes/Turma/Turma.admin.route';
 import CursoAdmin from './Routes/Curso/Curso.admin.route';
 
+import ProfessorProfessor from './Routes/Professor/Professor.professor.route';
 import AlunoProfessor from "./Routes/Aluno/Alunos.professor.route";
 import PessoaAdmin from "./Routes/Pessoa/Pessoa.admin.route";
+import TurmaProfessor from "./Routes/Turma/Turma.professor.route"
 
 import Pessoa from "./Routes/Pessoa/Pessoa.route";
 
@@ -46,7 +48,7 @@ app.use(Css);
 app.use(Js);
 app.use(Pessoa);
 
-app.use(express.static('public'))
+app.use(express.static('Public'))
 
 // app.use(async(req:Request, res:any, next:any)=>{
 //     await newMiddleware.verificarSession(req, res, next);
@@ -57,7 +59,10 @@ app.use(CursoAluno);
 app.use(TurmaAluno);
 app.use(AlunosAluno);
 app.use(ProfessorAluno);
+
 app.use(AlunoProfessor);
+app.use(ProfessorProfessor)
+app.use(TurmaProfessor)
 
 app.use(HtmlAutenticado);
 app.use(AlunoAdmin);

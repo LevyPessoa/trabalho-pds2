@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="Css/Tables.css">
-    <link rel="stylesheet" href="Css/Menu.css">
+    <link rel="stylesheet" href="/Css/Tables.css">
+    <link rel="stylesheet" href="/Css/Menu.css">
 
 </head>
 <body>
@@ -25,70 +25,20 @@
             <div class="sidebar-sticky">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link active" href="/alunos">
+                  <a class="nav-link active" href="/aluno/data">
                     <span data-feather="home"></span>
-                    Alunos <span class="sr-only">(current)</span>
+                   Meus Dados
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/professores">
+                  <a class="nav-link" href="">
                     <span data-feather="file"></span>
-                    Professores
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/turmas">
-                    <span data-feather="shopping-cart"></span>
                     Turmas
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/materias">
-                    <span data-feather="users"></span>
-                    Materias
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/cursos">
-                    <span data-feather="bar-chart-2"></span>
-                    Cursos
                   </a>
                 </li>
                 
               </ul>
   
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <span>Criação</span>
-                <a class="d-flex align-items-center text-muted" href="#">
-                  <span data-feather="plus-circle"></span>
-                </a>
-              </h6>
-              <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                  <a class="nav-link" href="/usuarios">
-                    <span data-feather="file-text"></span>
-                    Usuário
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/turma">
-                    <span data-feather="file-text"></span>
-                    Turma
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/curso">
-                    <span data-feather="file-text"></span>
-                    Curso
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/materia">
-                    <span data-feather="file-text"></span>
-                    Materia
-                  </a>
-                </li>
-              </ul>
             </div>
           </nav>
 
@@ -159,15 +109,12 @@
                 <input disabled="true" class="form-control ml-2 mr-2 col-5" e-id="email-aluno" type="text">
                 <label class="ml-2 mr-2 mt-2"><b>Idade</b></label>
                 <input disabled="true" class="form-control ml-2 mr-2 col-5" e-id="idade-aluno" type="text">
-                <button id="btn-editar-dados-aluno" class="btn btn-outline-warning ml-2 mr-2 mt-2 mb-2">Editar</button>
-                <button style="display:none;" id="btn-salvar-dados-aluno" class="btn btn-info ml-2 mr-2 mt-2 mb-2">Salvar</button>
+                
             </div>
             <div e-id="materias">
                 <label class="ml-2 mr-2 mt-2"><b>Matricula</b></label>
                 <input class="form-control ml-2 mr-2 col-5" e-id="matricula-aluno" disabled="true" type="text">
-                <button id="btn-editar-materia-aluno" class="btn btn-outline-warning ml-2 mr-2 mt-2 mb-2">Editar</button>
-                <button style="display:none;" id="btn-salvar-materia-aluno" class="btn btn-info ml-2 mr-2 mt-2 mb-2">Salvar</button>
-            </div>
+                
             <button id="fechar-modal" class="btn btn-outline-secondary ml-2 mr-2 mb-2 col-3  mt-2 ">Fechar</button>
           </div>
         </div>
@@ -178,7 +125,7 @@
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="/Js/requisicao.js"></script>
-        <script src="/Js/Admin/alunos.js"></script>
+        <script src="/Js/Aluno/Dados.js"></script>
         
 </body>
 </html>

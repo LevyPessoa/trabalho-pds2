@@ -5,14 +5,101 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="Css/Menu.css">
+
 </head>
 <body>
     
-    <div class="row">
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Meu portal</a>
+        
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="/sair">Sair</a>
+          </li>
+        </ul>
+      </nav>
+  
+     
+          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" href="/alunos">
+                    <span data-feather="home"></span>
+                    Alunos <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/professores">
+                    <span data-feather="file"></span>
+                    Professores
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/turmas">
+                    <span data-feather="shopping-cart"></span>
+                    Turmas
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/materias">
+                    <span data-feather="users"></span>
+                    Materias
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/cursos">
+                    <span data-feather="bar-chart-2"></span>
+                    Cursos
+                  </a>
+                </li>
+                
+              </ul>
+  
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Criação</span>
+                <a class="d-flex align-items-center text-muted" href="#">
+                  <span data-feather="plus-circle"></span>
+                </a>
+              </h6>
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link active" href="/usuarios">
+                    <span data-feather="file-text"></span>
+                    Usuário
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/turma">
+                    <span data-feather="file-text"></span>
+                    Turma
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/curso">
+                    <span data-feather="file-text"></span>
+                    Curso
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/materia">
+                    <span data-feather="file-text"></span>
+                    Materia
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+
+
+
+
+    <div class="row mt-2">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-            <label class="ml-2 mr-2">Dados Usuário:</label>
-            <input placeholder="Nome" id="nome" class="form-control col-5 ml-2 mr-2 mt-2" type="text">
+            <label class="ml-2 mr-2"><b>Dados Usuário</b></label>
+            <input placeholder="Nome" id="nome" class="form-control col-5 ml-2 mr-2 " type="text">
             <input placeholder="Sobrenome" id="sobrenome" class="form-control col-5 ml-2 mr-2 mt-2" type="text">
             <input placeholder="E-mail" id="email" class="form-control col-5 ml-2 mr-2 mt-2" type="text">
             <input placeholder="Idade" id="idade" class="form-control col-5 ml-2 mr-2 mt-2" type="number">

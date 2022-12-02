@@ -22,7 +22,23 @@ document.getElementById("btn-login").onclick = async () =>{
         }
 
         alert(novaRequisicao.content);
-        window.location = '/home';
+
+        if(novaRequisicao.tipo === "professor"){
+            window.location = '/professor/data';
+            return;
+        }
+
+        if(novaRequisicao.tipo === "aluno"){
+            window.location = '/aluno/data';
+            return;
+        }
+
+        if(novaRequisicao.tipo === "admin"){
+            window.location = '/alunos';
+            return;
+        }
+
+
     }catch(erro){
 
         if(erro.message){

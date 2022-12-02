@@ -47,4 +47,17 @@ router.get('/materias', (req:Request, res:Response):void=>{
 });
 
 
+///// professor
+
+router.get('/professor/data', (req:Request, res:Response):void=>{
+    res.sendFile(PATH+"Professor/index.html");
+});
+
+router.get('/aluno/data', (req:Request, res:Response):void=>{
+    res.sendFile(PATH+"Aluno/index.html");
+});
+router.get('/professor/turma', (req:Request, res:Response):void=>{
+    res.sendFile(PATH+"Professor/MinhasTurmas.html");
+});
+
 export default router;

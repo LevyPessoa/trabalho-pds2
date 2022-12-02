@@ -83,22 +83,34 @@ const listar = async(rota, tipo) =>{
 };
 
 // editar
-document.getElementById("btn-editar-dados-aluno").onclick = ()=>{
-    $("[e-id=nome-aluno]").prop("disabled", false);
-    $("[e-id=sobrenome-aluno]").prop("disabled", false);
-    $("[e-id=email-aluno]").prop("disabled", false);
-    $("[e-id=idade-aluno]").prop("disabled", false);
-    $("[e-id=idade-aluno]").prop("disabled", false);
-    document.getElementById("btn-editar-dados-aluno").style.display = 'none';
-    document.getElementById("btn-salvar-dados-aluno").style.display = 'block';
+document.getElementById("btn-editar-curso").onclick = ()=>{
+    $("[e-id=nome-curso]").prop("disabled", false);
+    $("[e-id=codigo-curso]").prop("disabled", false);
+    $("[e-id=email-curso]").prop("disabled", false);
+    $("[e-id=departamento-curso]").prop("disabled", false);
+    $("[e-id=reitor-curso]").prop("disabled", false);
+
+    $("[e-id=horas-curso]").prop("disabled", false);
+    $("[e-id=manha]").prop("disabled", false);
+    $("[e-id=tarde]").prop("disabled", false);
+    $("[e-id=noite]").prop("disabled", false);
+
+
+    document.getElementById("btn-editar-curso").style.display = 'none';
+    document.getElementById("btn-salvar-curso").style.display = 'block';
 };
 
-const preencherInputs = (dadosAluno)=>{
-    $("[e-id=nome-aluno]").val(dadosAluno.pessoa.nome);
-    $("[e-id=sobrenome-aluno]").val(dadosAluno.pessoa.sobrenome);
-    $("[e-id=email-aluno]").val(dadosAluno.pessoa.email);
-    $("[e-id=idade-aluno]").val(dadosAluno.pessoa.idade);
-    $("[e-id=matricula-aluno]").val(dadosAluno.matricula);
+const preencherInputs = (dadosCurso)=>{
+    $("[e-id=nome-curso]").val(dadosCurso.nome);
+    $("[e-id=codigo-curso]").val(dadosCurso.codigo);
+    $("[e-id=email-curso]").val(!!dadosCurso.email?dadosCurso.email:"");
+    $("[e-id=departamento-curso]").val(dadosCurso.departamento);
+    $("[e-id=horas-curso]").val(dadosCurso.horas);
+    $("[e-id=manha]").prop('checked',dadosCurso.turno.manha);
+    $("[e-id=tarde]").prop('checked',dadosCurso.turno.tarde);
+    $("[e-id=true]").prop('checked',dadosCurso.turno.tarde);
+
+    document.getElementById("reitor-curso").value =dadosCurso.reitor;
 
 };
 
@@ -109,10 +121,10 @@ const verMais = async (id) =>{
         if(buscarCurso.status === 200){
             $('#myModal').modal('show');
             $('[e-id=dados-curso]').attr("id", id);
-            return preencherInputs(buscarAluno.content);
+            return preencherInputs(buscarCurso.content);
         }
 
-        throw({erro:true, message:buscarAluno.content});
+        throw({erro:true, message:buscarCurso.content});
     }catch(erro){
         console.log(erro)
         if(erro.erro){
@@ -121,25 +133,33 @@ const verMais = async (id) =>{
     }
 };
 
-document.getElementById("btn-salvar-dados-aluno").onclick = async () =>{
+document.getElementById("btn-salvar-curso").onclick = async () =>{
     try{
            
-        const id =  $('[e-id=informacoes-pessoais]').attr("id");
-        const atualizarAlunoDados = await  requisicao("PUT", "/v1/pessoa", {
+        const id =  $('[e-id=dados-curso]').attr("id");
+        const atualizarCurso = await  requisicao("PUT", "/v1/curso", {
             id,
-            nome:$("[e-id=nome-aluno]").val(),
-            sobrenome:$("[e-id=sobrenome-aluno]").val(),
-            email:$("[e-id=email-aluno]").val(),
-            idade:$("[e-id=idade-aluno]").val(),
+            nome:$("[e-id=nome-curso]").val(),
+            codigo:$("[e-id=codigo-curso]").val(),
+            email:$("[e-id=email-curso]").val(),
+            departamento:$("[e-id=departamento-curso]").val(),
+            reitor:$("[e-id=reitor-curso]").val(),
+            horas:$("[e-id=horas-curso]").val(),
+            turno:{
+                tarde:$("[e-id=tarde]").prop("checked"),
+                noite:$("[e-id=noite]").prop("checked"),
+                manha:$("[e-id=manha]").prop("checked")
+            }
+
         });
 
-        if(atualizarAlunoDados.status === 200){
-            alert(atualizarAlunoDados.content);
+        if(atualizarCurso.status === 200){
+            alert(atualizarCurso.content);
 
             return voltarEstadoModal();
         }
 
-        throw({erro:true, message:atualizarAlunoDados.content});
+        throw({erro:true, message:atualizarCurso.content});
     }catch(erro){
 
         if(erro.erro){
@@ -155,16 +175,22 @@ document.getElementById("fechar-modal").onclick = ()=>{
 };
 
 const voltarEstadoModal = () => {
-    $("[e-id=nome-aluno]").val("");
-    $("[e-id=sobrenome-aluno]").val("");
-    $("[e-id=email-aluno]").val("");
-    $("[e-id=idade-aluno]").val("");
-    $("[e-id=nome-aluno]").prop("disabled", true);
-    $("[e-id=sobrenome-aluno]").prop("disabled", true);
-    $("[e-id=email-aluno]").prop("disabled", true);
-    $("[e-id=idade-aluno]").prop("disabled", true);
-    document.getElementById("btn-editar-dados-aluno").style.display = 'block';
-    document.getElementById("btn-salvar-dados-aluno").style.display = 'none';
+    $("[e-id=nome-curso]").val("");
+    $("[e-id=codigo-curso]").val("");
+    $("[e-id=email-curso]").val("");
+    $("[e-id=departamento-curso]").val("");
+    $("[e-id=reitor-curso]").val("");
+    $("[e-id=nome-curso]").prop("disabled", true);
+    $("[e-id=codigo-curso]").prop("disabled", true);
+    $("[e-id=email-curso]").prop("disabled", true);
+    $("[e-id=departamento-curso]").prop("disabled", true);
+    $("[e-id=reitor-curso]").prop("disabled", true);
+    $("[e-id=horas-curso]").prop("disabled", true);
+    $("[e-id=manha]").prop("disabled", true);
+    $("[e-id=tarde]").prop("disabled", true);
+    $("[e-id=noite]").prop("disabled", true);
+    document.getElementById("btn-editar-curso").style.display = 'block';
+    document.getElementById("btn-salvar-curso").style.display = 'none';
     $('#myModal').modal('hide');
 
 };

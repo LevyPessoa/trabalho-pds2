@@ -44,13 +44,126 @@ const listarProfessoresBanco = async() =>{
 };
 
 
+// editar
+document.getElementById("btn-editar-dados-professor").onclick = ()=>{
+    $("[e-id=nome-professor]").prop("disabled", false);
+    $("[e-id=sobrenome-professor]").prop("disabled", false);
+    $("[e-id=email-professor]").prop("disabled", false);
+    $("[e-id=idade-professor]").prop("disabled", false);
+    $("[e-id=idade-professor]").prop("disabled", false);
+    document.getElementById("btn-editar-dados-professor").style.display = 'none';
+    document.getElementById("btn-salvar-dados-professor").style.display = 'block';
+};
+
+document.getElementById("btn-editar-professor").onclick = ()=>{
+    $("[e-id=sala-professor]").prop("disabled", false);
+    document.getElementById("btn-editar-professor").style.display = 'none';
+    document.getElementById("btn-salvar-professor").style.display = 'block';
+};
+
+const preencherInputs = (dadosprofessor)=>{
+    $("[e-id=nome-professor]").val(dadosprofessor.pessoa.nome);
+    $("[e-id=sobrenome-professor]").val(dadosprofessor.pessoa.sobrenome);
+    $("[e-id=email-professor]").val(dadosprofessor.pessoa.email);
+    $("[e-id=idade-professor]").val(dadosprofessor.pessoa.idade);
+    $("[e-id=sala-professor]").val(dadosprofessor.sala);
+
+};
+
 const verMais = async (id) =>{
     try{
-        
-        $('#myModal').modal('show');
+        const buscarprofessor = await requisicao("GET", `/v1/professor/${id}`, null);
+
+        if(buscarprofessor.status === 200){
+            $('#myModal').modal('show');
+            $('[e-id=informacoes-pessoais]').attr("id", id);
+            $('[e-id=informacoes-professor]').attr("id", id);
+
+            return preencherInputs(buscarprofessor.content);
+        }
+
+        throw({erro:true, message:buscarprofessor.content});
     }catch(erro){
         console.log(erro)
+        if(erro.erro){
+            alert(erro.message);
+        }
     }
 };
+
+document.getElementById("btn-salvar-dados-professor").onclick = async () =>{
+    try{
+           
+        const id =  $('[e-id=informacoes-pessoais]').attr("id");
+        const atualizarprofessorDados = await  requisicao("PUT", "/v1/pessoa", {
+            id,
+            nome:$("[e-id=nome-professor]").val(),
+            sobrenome:$("[e-id=sobrenome-professor]").val(),
+            email:$("[e-id=email-professor]").val(),
+            idade:$("[e-id=idade-professor]").val(),
+        });
+
+        if(atualizarprofessorDados.status === 200){
+            alert(atualizarprofessorDados.content);
+
+            return voltarEstadoModal();
+        }
+
+        throw({erro:true, message:atualizarprofessorDados.content});
+    }catch(erro){
+
+        if(erro.erro){
+            alert(erro.message)
+        }
+
+    }
+};
+
+document.getElementById("btn-salvar-professor").onclick = async () =>{
+    try{
+           
+        const id =  $('[e-id=informacoes-professor]').attr("id");
+        const atualizarprofessorDados = await  requisicao("PUT", "/v1/professor", {
+            id,
+            sala:$("[e-id=sala-professor]").val(),
+        });
+
+        if(atualizarprofessorDados.status === 200){
+            alert(atualizarprofessorDados.content);
+
+            return voltarEstadoModal();
+        }
+
+        throw({erro:true, message:atualizarprofessorDados.content});
+    }catch(erro){
+
+        if(erro.erro){
+            alert(erro.message)
+        }
+
+    }
+};
+
+document.getElementById("fechar-modal").onclick = ()=>{
+
+    return voltarEstadoModal();
+};
+
+const voltarEstadoModal = () => {
+    $("[e-id=nome-professor]").val("");
+    $("[e-id=sobrenome-professor]").val("");
+    $("[e-id=email-professor]").val("");
+    $("[e-id=idade-professor]").val("");
+    $("[e-id=nome-professor]").prop("disabled", true);
+    $("[e-id=sobrenome-professor]").prop("disabled", true);
+    $("[e-id=email-professor]").prop("disabled", true);
+    $("[e-id=idade-professor]").prop("disabled", true);
+    document.getElementById("btn-editar-dados-professor").style.display = 'block';
+    document.getElementById("btn-salvar-dados-professor").style.display = 'none';
+    $('#myModal').modal('hide');
+
+};
+
+//editar
 
 listarProfessoresBanco();

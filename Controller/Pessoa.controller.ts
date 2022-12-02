@@ -101,7 +101,7 @@ export class Pessoa {
         return await this.EditarPessoa(id, pessoa);
     };
 
-    private async Login(email:string, senha:string, session:any): Promise<MessageReturnDto | Error> {
+    private async Login(email:string, senha:string, session:any): Promise<object | Error> {
         try{
 
             if(!!!email || !!!senha){
@@ -123,7 +123,7 @@ export class Pessoa {
             
             const pronome = buscarUsuario.sexo === 'masculino' ? 'Sr' : 'Sra';
 
-            return {status:200, content:`Seja bem-vindo ${pronome}.${buscarUsuario.sobrenome}`};
+            return {status:200, content:`Seja bem-vindo ${pronome}.${buscarUsuario.sobrenome}`, tipo:buscarUsuario.tipo};
         }catch(erro){
             console.log(erro)
             if(erro.status === 403 || erro.status === 404){
@@ -135,7 +135,7 @@ export class Pessoa {
         }
     };
 
-    async login(email:string, senha:string, session:any): Promise<MessageReturnDto | Error> {
+    async login(email:string, senha:string, session:any): Promise<object | Error> {
 
         return await this.Login(email, senha, session);
     };
